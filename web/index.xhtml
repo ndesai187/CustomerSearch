@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Cust Query</title>
+    </h:head>
+    <h:body>
+        <h1>Customer Query</h1>
+        <h:form>
+            <h:panelGrid columns="3">
+
+                Query id:
+                <h:inputText id="queryIdField"
+                             value='#{queryBean.queryId}'
+                             required="true"
+                             requiredMessage="Please Enter a customer Number"/>
+                <h:message for="queryIDField"/>
+
+                <h:commandButton value="Clear" action="#{queryBean.clear()}"/>
+                <h:commandButton value="Search" action="#{queryBean.search()}"/>
+                <h:panelGroup/>         
+            </h:panelGrid>
+
+            <h:panelGrid columns="2" rendered="#{not empty queryBean.customer}">
+
+                Name:
+                <h:outputText value="#{queryBean.customer.name}"/>
+
+                Address:
+                <h:outputText value="#{queryBean.customer.addressline1}"/>
+
+                <h:panelGroup/>
+                <h:outputText value="#{queryBean.customer.addressline2}"/>
+
+                City:
+                <h:outputText value="#{queryBean.customer.city}"/>
+
+                State:
+                <h:outputText value="#{queryBean.customer.state}"/>
+
+                ZIP:
+                <h:outputText value="#{queryBean.customer.zip}"/>
+
+                Phone:
+                <h:outputText value="#{queryBean.customer.phone}"/>
+
+                Fax:
+                <h:outputText value="#{queryBean.customer.fax}"/>
+
+                Email:
+                <h:outputText value="#{queryBean.customer.email}"/>
+
+                Discount Code:
+                <h:outputText value="#{queryBean.customer.discountCode}"/>
+
+                Credit Limit:
+                <h:outputText value="#{queryBean.customer.creditLimit}"/>
+
+                <h:dataTable var="po"  border="1"
+                             rendered="#{queryBean.customer.purchaseOrders.size() gt 0}"
+                             value="#{queryBean.customer.purchaseOrders}">
+
+                    <h:column>
+                        <f:facet name="header">Order Number</f:facet>
+                        <h:outputText value="#{po.orderNumber}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Product Id</f:facet>
+                        <h:outputText value="#{po.productId}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Quantity</f:facet>
+                        <h:outputText value="#{po.quantity}"/>
+                    </h:column>
+
+                </h:dataTable>
+
+            </h:panelGrid>
+
+        </h:form>
+    </h:body>
+</html>
+
